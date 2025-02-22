@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:random_string/random_string.dart';
+import 'package:notes/service/database.dart';
 
-import '../service/database.dart';
 
 class form extends StatefulWidget {
   const form({super.key});
@@ -12,9 +10,9 @@ class form extends StatefulWidget {
 }
 
 class _formState extends State<form> {
-  TextEditingController namecontroller = TextEditingController();
-  TextEditingController agecontroller = TextEditingController();
-  TextEditingController locationcontroller = TextEditingController();
+  final nameController = TextEditingController();
+  final ageController = TextEditingController();
+  final locationController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +59,7 @@ class _formState extends State<form> {
                   border: Border.all(),
                   borderRadius: BorderRadius.circular(10)),
               child: TextField(
-                controller: namecontroller,
+                controller: nameController,
                 decoration: InputDecoration(border: InputBorder.none),
               ),
             ),
@@ -84,7 +82,7 @@ class _formState extends State<form> {
                   border: Border.all(),
                   borderRadius: BorderRadius.circular(10)),
               child: TextField(
-                controller: agecontroller,
+                controller: ageController,
                 decoration: InputDecoration(border: InputBorder.none),
               ),
             ),
@@ -107,7 +105,7 @@ class _formState extends State<form> {
                   border: Border.all(),
                   borderRadius: BorderRadius.circular(10)),
               child: TextField(
-                controller: locationcontroller,
+                controller: locationController,
                 decoration: InputDecoration(border: InputBorder.none),
               ),
             ),
@@ -116,25 +114,12 @@ class _formState extends State<form> {
             ),
             Center(
               child: ElevatedButton(
-                  onPressed: () async {
-                    String Id = randomAlphaNumeric(10);
-                    Map<String, dynamic> employeeInfoMap = {
-                      "name": namecontroller.text,
-                      "age": agecontroller.text,
-                      "location": locationcontroller.text
-                    };
-                    await Database()
-                        .addEmployeeDetails(employeeInfoMap, Id)
-                        .then((value) {
-                      Fluttertoast.showToast(
-                          msg: "Employee Details Added Successfully",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.blue,
-                          textColor: Colors.white,
-                          fontSize: 16.0);
-                    });
+                  onPressed: () {
+                    final name = nameController.text;
+                    final age = ageController.text;
+                    final location = locationController.text;
+
+                    addDetails(name: name, age: age, location: location);
                   },
                   child: Text(
                     "Submit",
@@ -150,3 +135,5 @@ class _formState extends State<form> {
     );
   }
 }
+
+
