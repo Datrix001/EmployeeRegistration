@@ -10,9 +10,11 @@ class Database {
         .set(employeeInfoMap);
   }
 
-  Stream<QuerySnapshot> getEmployeeStream() {
+  Stream<QuerySnapshot> getEmployeeStream(){
     return FirebaseFirestore.instance.collection("Employee").snapshots();
   }
 
-  static getEmoplyeeDetails() {}
+  static Stream<QuerySnapshot> getEmplyeeDetails() {
+    return FirebaseFirestore.instance.collection("Employee").snapshots();
+  }
 }

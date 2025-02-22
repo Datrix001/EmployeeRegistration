@@ -12,8 +12,8 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   Stream<QuerySnapshot>? employeeStream;
 
-  getOnTheLoad() async {
-    employeeStream = await Database.getEmoplyeeDetails();
+  getOnTheLoad() {
+    employeeStream = Database.getEmplyeeDetails();
     setState(() {});
   }
 
@@ -34,42 +34,49 @@ class _HomepageState extends State<Homepage> {
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
             DocumentSnapshot ds = snapshot.data!.docs[index];
-            return Material(
-              elevation: 5,
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                padding: EdgeInsets.all(20),
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Name : ${ds["name"]}",
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+            return Column(
+              children: [
+                Material(
+                  elevation: 5,
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Name : ${ds["name"]}",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Age : ${ds["age"].toString()}",
+                          style: TextStyle(
+                              color: Colors.orange,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Location : ${ds["location"]}",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
-                    Text(
-                      "Age : ${ds["age"].toString()}",
-                      style: TextStyle(
-                          color: Colors.orange,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "Location : ${ds["location"]}",
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                SizedBox(
+                  height: 20,
+                )
+              ],
             );
           },
         );
