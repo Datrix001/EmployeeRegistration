@@ -15,7 +15,10 @@ Future addDetails(
   await docUser.set(json);
 }
 
-Stream<List<User>> readDetails() => FirebaseFirestore.instance
-    .collection("Employee")
-    .snapshots()
-     .snapshot.docs.map((doc) => User.fromFirestore(doc)).toList();
+class User {}
+
+// Stream<List<User>> readDetails(dynamic doc) => FirebaseFirestore.instance
+//     .collection("Employee")
+//     .snapshots()
+//     .map((snapshot)=>
+//         snapshot.docs.map((doc)=>)doc.data().toList());

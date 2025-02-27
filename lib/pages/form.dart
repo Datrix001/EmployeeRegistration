@@ -115,11 +115,9 @@ class _formState extends State<form> {
             Center(
               child: ElevatedButton(
                   onPressed: () {
-                    final name = nameController.text;
-                    final age = ageController.text;
-                    final location = locationController.text;
-
-                    addDetails(name: name, age: age, location: location);
+                    final user = User(name: nameController.text, age:ageController.text, location: locationController.text);
+                    
+                    addDetails(name:user.name, age: user.age, location: user.location);
                   },
                   child: Text(
                     "Submit",
@@ -134,6 +132,29 @@ class _formState extends State<form> {
       ),
     );
   }
+  
 }
 
 
+class User{
+  String id;
+  final String name ;
+  final String age ;
+  final  String location ;
+
+  User({
+    this.id = "",
+    required this.name,
+    required this.age,
+    required this.location,
+    
+  });
+
+
+Map<String,dynamic> toJson()=>{
+  'id':id,
+  'name':name,
+  'age':age,
+  'location':location,
+};
+}
