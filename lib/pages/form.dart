@@ -157,4 +157,13 @@ Map<String,dynamic> toJson()=>{
   'age':age,
   'location':location,
 };
+
+static User fromJson(Map<String,dynamic>json)=>User(
+  id: json['id'],
+  age: json['age'],
+  location: json['location'],
+  name: json['name'],
+
+);
+
 }

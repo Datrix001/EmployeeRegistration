@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:notes/pages/form.dart';
 
 Future addDetails(
     {required String name,
@@ -15,10 +16,8 @@ Future addDetails(
   await docUser.set(json);
 }
 
-class User {}
-
-// Stream<List<User>> readDetails(dynamic doc) => FirebaseFirestore.instance
-//     .collection("Employee")
-//     .snapshots()
-//     .map((snapshot)=>
-//         snapshot.docs.map((doc)=>)doc.data().toList());
+Stream<List<User>> readUser() => FirebaseFirestore.instance
+    .collection("Employee")
+    .snapshots()
+    .map((snapshot) =>
+        snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
