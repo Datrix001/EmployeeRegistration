@@ -16,6 +16,20 @@ Future addDetails(
   await docUser.set(json);
 }
 
+Future updateDetails(
+  {required String userId,
+    required String name,
+    required String age,
+    required String location}) async {
+  final docUser = FirebaseFirestore.instance.collection("Employee").doc(userId);
+
+  await docUser.update({
+    'name': name,
+    'age': age,
+    'location': location,
+  });
+}
+
 Stream<List<User>> readUser() => FirebaseFirestore.instance
     .collection("Employee")
     .snapshots()
