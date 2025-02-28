@@ -1,4 +1,4 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/pages/form.dart';
 import 'package:notes/service/database.dart';
@@ -11,6 +11,9 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  final nameController = TextEditingController();
+  final ageController = TextEditingController();
+  final locationController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,8 +65,8 @@ class _HomepageState extends State<Homepage> {
                     itemBuilder: (context, index) {
                       final user = users[index];
 
-                      return Column(
-                        children: [Material(
+                      return Column(children: [
+                        Material(
                           elevation: 5,
                           borderRadius: BorderRadius.circular(10),
                           child: Container(
@@ -86,7 +89,93 @@ class _HomepageState extends State<Homepage> {
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      Icon(Icons.edit)
+                                      Spacer(),
+                                      IconButton(
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    AlertDialog(
+                                                      title: Text("Edit"),
+                                                      content:
+                                                          SingleChildScrollView(
+                                                        child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min, // ✅ Ensures dialog size adapts to content
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text("Name"),
+                                                              TextField(
+                                                                controller:
+                                                                    nameController,
+                                                              ),
+                                                              Text("Age"),
+                                                              TextField(
+                                                                controller:
+                                                                    ageController,
+                                                              ),
+                                                              Text("Location"),
+                                                              TextField(
+                                                                controller:
+                                                                    locationController,
+                                                              ),
+                                                            ]),
+                                                      ),
+                                                      actions: [
+                                                        TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    context),
+                                                            child:
+                                                                Text("Cancel")),
+                                                        TextButton(
+                                                          onPressed: () async {
+                                                            String updatedName =
+                                                                nameController
+                                                                    .text;
+                                                            String updatedAge =
+                                                                ageController
+                                                                    .text;
+                                                            String
+                                                                updatedLocation =
+                                                                locationController
+                                                                    .text;
+                                                            final docUser =
+                                                                FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'Employee')
+                                                                    .doc(
+                                                                        '${user.id}');
+                                                            await docUser
+                                                                .update({
+                                                              'name':
+                                                                  updatedName,
+                                                              'age': updatedAge,
+                                                              'location':
+                                                                  updatedLocation,
+                                                            });
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Text("Update"),
+                                                        )
+                                                      ],
+                                                    ));
+                                          },
+                                          icon: Icon(Icons.edit)),
+                                      IconButton(
+                                          onPressed: () {
+                                            final docUser = FirebaseFirestore
+                                                .instance
+                                                .collection('Employee')
+                                                .doc('${user.id}');
+                                            docUser.delete();
+                                          },
+                                          icon: Icon(Icons.delete))
                                     ]),
                                 Text(
                                   "Age : ${user.age}",
