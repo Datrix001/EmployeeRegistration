@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/pages/form.dart';
+import 'package:notes/pages/front.dart';
 import 'package:notes/pages/home.dart';
+import 'package:notes/pages/login.dart';
+import 'package:notes/pages/register.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +22,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: "/",
       // home: Homepage(),
-      routes: {"/": (context) => const Homepage(), "/form": (context) => form()},
+      routes: {
+        "/": (context) => const Front(),
+        "/form": (context) => form(),
+        "/login":(context)=>Login(),
+        "/register":(context)=>Register(),
+        "/home":(context)=>Homepage()
+      },
     );
   }
 }
