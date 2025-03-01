@@ -5,8 +5,9 @@ class Front extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-        child: Column(
+    return Scaffold(
+        backgroundColor: Color.fromRGBO(120, 134, 199, 1.0),
+        body: Column(
           children: [
             Container(
                   padding: EdgeInsets.only(left: 50, top: 100, right: 50),
