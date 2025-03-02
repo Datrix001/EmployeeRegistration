@@ -1,7 +1,10 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:notes/color/Colors.dart';
+import 'package:notes/content/Clipper.dart';
+import 'package:notes/styles/Colors.dart';
+import 'package:notes/styles/buttons.dart';
+import 'package:notes/styles/font.dart';
 
 class Front extends StatelessWidget {
   const Front({super.key});
@@ -9,6 +12,15 @@ class Front extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  
+  //Changing Class Values
+    AppText.bodySize = 20;
+    AppText.headerSize = math.min(
+                            MediaQuery.of(context).size.width * 0.14, 90);
+    
+    AppButton.buttonWidth = MediaQuery.of(context).size.width * 0.7;
+    AppButton.buttonHeight = 50;
+
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
@@ -17,13 +29,18 @@ class Front extends StatelessWidget {
         body: SingleChildScrollView(
           child: Stack(
             children: [
+              
+              //Clipper Art
+              //1st Clipper
               ClipPath(
                 clipper: bigClipper(),
                 child: Container(
                   height: 170,
-                  color: Color(0xFF2D336B),
+                  color: AppColors.buttonColor,
                 ),
               ),
+
+              //2nd Clipper
               Opacity(
                 opacity: 0.5,
                 child: ClipPath(
@@ -34,46 +51,32 @@ class Front extends StatelessWidget {
                   ) ,
                 ),
               ),
+              
+              //Content
               Column(
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: height*0.06,vertical: width*0.4),
                     child: Text(
                       "The best app for employee registration",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: "Urbanist",
-                        fontSize: math.min(
-                            MediaQuery.of(context).size.width * 0.14, 90),
-                      ),
+                      style: AppText.header,
                     ),
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, "/login");
+                        Navigator.popAndPushNamed(context, "/login");
                       },
-                      style: ElevatedButton.styleFrom(
-                          minimumSize:
-                              Size(MediaQuery.of(context).size.width * 0.7, 50),
-                          backgroundColor: Color.fromRGBO(45, 51, 107, 1.0)),
+                      style: AppButton.ElevatedStyle,
                       child: Text("Sign In",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              fontFamily: "Raleway"))),
+                          style: AppText.body,
+                          )),
                   TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, "/register");
+                        Navigator.popAndPushNamed(context, "/register");
                       },
                       child: Text(
                         "Create an account",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            fontFamily: "Raleway"),
+                        style: AppText.body
                       ))
                 ],
               ),
@@ -83,53 +86,4 @@ class Front extends StatelessWidget {
   }
 }
 
-class bigClipper extends CustomClipper<Path>{
-  @override
-  getClip(Size size) {
-    var path = new Path();
-    path.lineTo(0, size.height);
-    var firstStart = Offset(size.width/4, size.height-50);
-    var firstEnd = Offset(size.width/2, size.height-30);
-
-    path.quadraticBezierTo(firstStart.dx, firstStart.dy, firstEnd.dx, firstEnd.dy);
-    var secondStart = Offset(3*size.width/4,size.height);
-    var secondEnd = Offset(size.width,size.height-40);
-    path.quadraticBezierTo(secondStart.dx, secondStart.dy, secondEnd.dx, secondEnd.dy);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-    
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper oldClipper) {
-    return false;
-  }
-
-}
-
-class WaveClipper extends CustomClipper<Path>{
-  @override
-  getClip(Size size) {
-    var path = new Path();
-    path.lineTo(0, size.height);
-    var firstStart = Offset(size.width/5, size.height);
-    var firstEnd = Offset(size.width/2.25, size.height-50);
-
-    path.quadraticBezierTo(firstStart.dx, firstStart.dy, firstEnd.dx, firstEnd.dy);
-    var secondStart = Offset(size.width-(size.width/3.24),size.height-105);
-    var secondEnd = Offset(size.width,size.height-10);
-    path.quadraticBezierTo(secondStart.dx, secondStart.dy, secondEnd.dx, secondEnd.dy);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-    
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper oldClipper) {
-    return false;
-  }
-
-}
 

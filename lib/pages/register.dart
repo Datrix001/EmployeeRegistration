@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes/color/Colors.dart';
+import 'package:notes/styles/Colors.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
