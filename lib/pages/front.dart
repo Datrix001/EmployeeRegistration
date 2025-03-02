@@ -8,7 +8,6 @@ import 'package:notes/styles/font.dart';
 
 class Front extends StatelessWidget {
   const Front({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +38,7 @@ class Front extends StatelessWidget {
                   color: AppColors.buttonColor,
                 ),
               ),
-
+          
               //2nd Clipper
               Opacity(
                 opacity: 0.5,
@@ -54,21 +53,23 @@ class Front extends StatelessWidget {
               
               //Content
               Column(
+                
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: height*0.06,vertical: width*0.4),
                     child: Text(
                       "The best app for employee registration",
-                      style: AppText.header,
+                      style: AppText.headerStyle(),
                     ),
                   ),
+                  
                   ElevatedButton(
                       onPressed: () {
                         Navigator.popAndPushNamed(context, "/login");
                       },
                       style: AppButton.ElevatedStyle,
                       child: Text("Sign In",
-                          style: AppText.body,
+                          style: AppText.bodyStyle(),
                           )),
                   TextButton(
                       onPressed: () {
@@ -76,7 +77,7 @@ class Front extends StatelessWidget {
                       },
                       child: Text(
                         "Create an account",
-                        style: AppText.body
+                        style: AppText.bodyStyle()
                       ))
                 ],
               ),
