@@ -81,49 +81,44 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 40,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Don't have an Account?",style: AppText.body1Style(),),
+                  TextButton(
+                      onPressed: () {},
+                      child: Text("Sign Up",
+                          style: AppText.LinkTextStyle()))
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
               Text("Or Login With", style: AppText.body1Style()),
               SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        "assets/images/facebook.png",
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text("Sign Up With Facebook",
-                          style: AppText.buttonStyle())
-                    ],
-                  )),
-              ElevatedButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        "assets/images/google.png",
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text("Sign Up With Google", style: AppText.buttonStyle())
-                    ],
-                  )),
-              SizedBox(
-                height: 40,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  TextButton(
-                      onPressed: () {},
-                      child: Text("Don't have an Account? Sign Up Here",
-                          style: AppText.LinkTextStyle()))
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 25,
+                    child: IconButton(onPressed: (){}, icon: Image.asset(
+                          "assets/images/facebook.png",
+                          height: 30,
+                        ),),
+                  ),
+                  SizedBox(width: 20,),
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 25,
+                    child: IconButton(onPressed: (){}, icon: Image.asset(
+                          "assets/images/google.png",
+                          height: 30,
+                        ),),
+                  ),
                 ],
               )
             ],

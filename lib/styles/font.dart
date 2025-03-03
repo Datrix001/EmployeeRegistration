@@ -17,6 +17,7 @@ class AppText {
   static FontWeight headerWeight = FontWeight.w700;
   static FontWeight bodyWeight = FontWeight.bold;
   static FontWeight body1Weight = FontWeight.w900;
+  static FontWeight linkWeight = FontWeight.w500;
 
   
 
@@ -58,11 +59,11 @@ class AppText {
   static TextStyle LinkTextStyle() {
     return TextStyle(
       fontSize: body1Size,
-      fontWeight: body1Weight,
-      fontFamily: "Raleway",
-      color: body1Color,
-      decoration: TextDecoration.underline,
-      decorationColor: Colors.white
+      fontWeight: linkWeight,
+      fontFamily: "Urbanist",
+      color: AppColors.buttonColor,
+      // decoration: TextDecoration.underline,
+      // decorationColor:AppColors.buttonColor
     );
 }
 }
