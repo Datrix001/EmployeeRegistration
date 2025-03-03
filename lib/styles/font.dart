@@ -17,7 +17,7 @@ class AppText {
   static FontWeight headerWeight = FontWeight.w700;
   static FontWeight bodyWeight = FontWeight.bold;
   static FontWeight body1Weight = FontWeight.w900;
-  static FontWeight linkWeight = FontWeight.w500;
+  static FontWeight linkWeight = FontWeight.w700;
 
   
 
