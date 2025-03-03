@@ -37,37 +37,54 @@ class _LoginState extends State<Login> {
                   style: AppText.headerStyle(),
                 ),
               ),
-              SizedBox(height: 40,),
+              SizedBox(
+                height: 40,
+              ),
               Center(
                   child: Text(
                 "Login Back To Your Account And Resume Where You Left Off.",
                 style: AppText.bodyStyle(),
                 textAlign: TextAlign.center,
               )),
-              SizedBox(height: 40,),
-          
+              SizedBox(
+                height: 40,
+              ),
               NormField(
                 "Email",
               ).normal(),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               NormField(
                 "Password",
               ).normal(),
               Align(
-                alignment: Alignment.centerRight,
-                child: Text("Forgot Password",style: AppText.body1Style(),)),
-              SizedBox(height: 20,),
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Forgot Password",
+                        style: AppText.body1Style(),
+                      ))),
+              SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.popAndPushNamed(context, "/home");
+                  },
                   style: AppButton.ElevatedStyle,
                   child: Text(
                     "Login",
                     style: AppText.bodyStyle(),
                   )),
-              SizedBox(height: 40,),
-              Text("Or Login With",style: AppText.body1Style()),
-              SizedBox(height: 20,),
-
+              SizedBox(
+                height: 40,
+              ),
+              Text("Or Login With", style: AppText.body1Style()),
+              SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
                   onPressed: () {},
                   child: Row(
@@ -79,7 +96,8 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         width: 20,
                       ),
-                      Text("Sign Up With Facebook",style: AppText.buttonStyle())
+                      Text("Sign Up With Facebook",
+                          style: AppText.buttonStyle())
                     ],
                   )),
               ElevatedButton(
@@ -88,21 +106,24 @@ class _LoginState extends State<Login> {
                     children: [
                       Image.asset(
                         "assets/images/google.png",
-                        
                         height: 20,
                       ),
                       SizedBox(
                         width: 20,
                       ),
-                      Text("Sign Up With Google",style: AppText.buttonStyle())
+                      Text("Sign Up With Google", style: AppText.buttonStyle())
                     ],
                   )),
-              SizedBox(height: 40,),
+              SizedBox(
+                height: 40,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don't have an Account?",style: AppText.body1Style()),
-                  TextButton(onPressed: () {}, child: Text("Sign Up Here",style: AppText.body1Style()))
+                  TextButton(
+                      onPressed: () {},
+                      child: Text("Don't have an Account? Sign Up Here",
+                          style: AppText.LinkTextStyle()))
                 ],
               )
             ],

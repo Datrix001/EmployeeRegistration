@@ -53,6 +53,16 @@ class AppText {
       fontWeight: body1Weight,
       fontFamily: "Raleway",
       color: buttonColor
-    );
+    );  
   }
+  static TextStyle LinkTextStyle() {
+    return TextStyle(
+      fontSize: body1Size,
+      fontWeight: body1Weight,
+      fontFamily: "Raleway",
+      color: body1Color,
+      decoration: TextDecoration.underline,
+      decorationColor: Colors.white
+    );
+}
 }
