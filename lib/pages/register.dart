@@ -124,7 +124,9 @@ class _RegisterState extends State<Register> {
                 children: [
                   Text("Already Have An Account?",style: AppText.body1Style(),),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.popAndPushNamed(context, "/login");
+                      },
                       child: Text("Login Here",
                           style: AppText.LinkTextStyle()))
                 ],
