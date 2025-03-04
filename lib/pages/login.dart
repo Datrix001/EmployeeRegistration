@@ -61,11 +61,11 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 40,
               ),
-              NormField("Email", emailController).normal(),
+              NormField("Email", emailController),
               SizedBox(
                 height: 20,
               ),
-              NormField("Password", passwordController).normal(),
+              NormField("Password", passwordController),
               Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(

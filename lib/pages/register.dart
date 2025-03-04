@@ -17,12 +17,13 @@ class _RegisterState extends State<Register> {
   final TextEditingController passwordController = TextEditingController();
   final auth = Auth();
 
-    @override
+  @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     //Changing classes
@@ -60,31 +61,19 @@ class _RegisterState extends State<Register> {
               SizedBox(
                 height: 40,
               ),
-              NormField(
-                "Full Name",
-                null
-              ).normal(),
+              NormField("Full Name", null),
               SizedBox(
                 height: 20,
               ),
-              NormField(
-                "Email",
-                emailController
-              ).normal(),
+              NormField("Email", emailController),
               SizedBox(
                 height: 20,
               ),
-              NormField(
-                "Password",
-                passwordController
-              ).normal(),
+              NormField("Password", passwordController),
               SizedBox(
                 height: 20,
               ),
-              NormField(
-                "Confirm Password",
-                null
-              ).normal(),
+              NormField("Confirm Password", null),
               SizedBox(
                 height: 30,
               ),
@@ -122,13 +111,15 @@ class _RegisterState extends State<Register> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Already Have An Account?",style: AppText.body1Style(),),
+                  Text(
+                    "Already Have An Account?",
+                    style: AppText.body1Style(),
+                  ),
                   TextButton(
                       onPressed: () {
                         Navigator.popAndPushNamed(context, "/login");
                       },
-                      child: Text("Login Here",
-                          style: AppText.LinkTextStyle()))
+                      child: Text("Login Here", style: AppText.LinkTextStyle()))
                 ],
               ),
               SizedBox(
@@ -145,19 +136,27 @@ class _RegisterState extends State<Register> {
                   CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 25,
-                    child: IconButton(onPressed: (){}, icon: Image.asset(
-                          "assets/images/facebook.png",
-                          height: 30,
-                        ),),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Image.asset(
+                        "assets/images/facebook.png",
+                        height: 30,
+                      ),
+                    ),
                   ),
-                  SizedBox(width: 20,),
+                  SizedBox(
+                    width: 20,
+                  ),
                   CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 25,
-                    child: IconButton(onPressed: (){}, icon: Image.asset(
-                          "assets/images/google.png",
-                          height: 30,
-                        ),),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Image.asset(
+                        "assets/images/google.png",
+                        height: 30,
+                      ),
+                    ),
                   ),
                 ],
               )
