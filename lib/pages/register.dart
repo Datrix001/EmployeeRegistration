@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes/service/auth_service.dart';
 import 'package:notes/styles/Colors.dart';
 import 'package:notes/styles/buttons.dart';
 import 'package:notes/styles/font.dart';
@@ -12,6 +13,16 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final auth = Auth();
+
+    @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     //Changing classes
@@ -51,35 +62,58 @@ class _RegisterState extends State<Register> {
               ),
               NormField(
                 "Full Name",
+                null
               ).normal(),
               SizedBox(
                 height: 20,
               ),
               NormField(
                 "Email",
+                emailController
               ).normal(),
               SizedBox(
                 height: 20,
               ),
               NormField(
                 "Password",
+                passwordController
               ).normal(),
               SizedBox(
                 height: 20,
               ),
               NormField(
-                "Password",
+                "Confirm Password",
+                null
               ).normal(),
               SizedBox(
                 height: 30,
               ),
               ElevatedButton(
-                  onPressed: () {
-                    Navigator.popAndPushNamed(context, "/home");
+                  onPressed: () async {
+                    if (emailController.text.isNotEmpty &&
+                        passwordController.text.length > 6) {
+                      try {
+                        await auth.createUSerWithEmailAndPassword(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+                        Navigator.popAndPushNamed(context,
+                            "/home"); // Navigate after successful login
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text("Login Failed: ${e.toString()}")),
+                        );
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Invalid email or password")),
+                      );
+                    }
                   },
                   style: AppButton.ElevatedStyle,
                   child: Text(
-                    "Login",
+                    "Register",
                     style: AppText.bodyStyle(),
                   )),
               SizedBox(

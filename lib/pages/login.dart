@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes/service/auth_service.dart';
 import 'package:notes/styles/Colors.dart';
 import 'package:notes/styles/buttons.dart';
 import 'package:notes/styles/font.dart';
@@ -12,6 +13,17 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final auth = Auth();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     //Changing classes
@@ -49,15 +61,11 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 40,
               ),
-              NormField(
-                "Email",
-              ).normal(),
+              NormField("Email", emailController).normal(),
               SizedBox(
                 height: 20,
               ),
-              NormField(
-                "Password",
-              ).normal(),
+              NormField("Password", passwordController).normal(),
               Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -70,8 +78,27 @@ class _LoginState extends State<Login> {
                 height: 20,
               ),
               ElevatedButton(
-                  onPressed: () {
-                    Navigator.popAndPushNamed(context, "/home");
+                  onPressed: () async {
+                    if (emailController.text.isNotEmpty &&
+                        passwordController.text.length > 6) {
+                      try {
+                        await auth.signInWithEmailAndPassword(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+                        Navigator.popAndPushNamed(context,
+                            "/home"); // Navigate after successful login
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text("Login Failed: ${e.toString()}")),
+                        );
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Invalid email or password")),
+                      );
+                    }
                   },
                   style: AppButton.ElevatedStyle,
                   child: Text(
@@ -84,11 +111,15 @@ class _LoginState extends State<Login> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don't have an Account?",style: AppText.body1Style(),),
+                  Text(
+                    "Don't have an Account?",
+                    style: AppText.body1Style(),
+                  ),
                   TextButton(
-                      onPressed: () {},
-                      child: Text("Sign Up",
-                          style: AppText.LinkTextStyle()))
+                      onPressed: () {
+                        Navigator.popAndPushNamed(context, "/register");
+                      },
+                      child: Text("Sign Up", style: AppText.LinkTextStyle()))
                 ],
               ),
               SizedBox(
@@ -105,19 +136,27 @@ class _LoginState extends State<Login> {
                   CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 25,
-                    child: IconButton(onPressed: (){}, icon: Image.asset(
-                          "assets/images/facebook.png",
-                          height: 30,
-                        ),),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Image.asset(
+                        "assets/images/facebook.png",
+                        height: 30,
+                      ),
+                    ),
                   ),
-                  SizedBox(width: 20,),
+                  SizedBox(
+                    width: 20,
+                  ),
                   CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 25,
-                    child: IconButton(onPressed: (){}, icon: Image.asset(
-                          "assets/images/google.png",
-                          height: 30,
-                        ),),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Image.asset(
+                        "assets/images/google.png",
+                        height: 30,
+                      ),
+                    ),
                   ),
                 ],
               )
