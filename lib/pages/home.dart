@@ -14,6 +14,17 @@ class _HomepageState extends State<Homepage> {
   final nameController = TextEditingController();
   final ageController = TextEditingController();
   final locationController = TextEditingController();
+  final positionController = TextEditingController();
+
+  @override
+void dispose() {
+  nameController.dispose();
+  ageController.dispose();
+  locationController.dispose();
+  positionController.dispose();
+  super.dispose();
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,115 +93,160 @@ class _HomepageState extends State<Homepage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "Name : ${user.name}",
-                                        style: TextStyle(
-                                            color: Colors.blue,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
+                                      Expanded(
+                                        child: Text(
+                                          "Name : ${user.name}",
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
-                                      Spacer(),
+                                      // SizedBox(width: 100,),
                                       IconButton(
                                           onPressed: () {
                                             nameController.text = user.name;
                                             ageController.text = user.age;
                                             locationController.text =
                                                 user.location;
+                                            positionController.text =
+                                                user.position;
                                             showDialog(
                                                 context: context,
-                                                builder:
-                                                    (context) => AlertDialog(
-                                                          title: Text(
-                                                            "Edit",
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                          content:
-                                                              SingleChildScrollView(
-                                                            child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    "Name",
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight.bold),
-                                                                  ),
-                                                                  TextField(
-                                                                    controller:
-                                                                        nameController,
-                                                                    decoration: InputDecoration(
+                                                builder: (context) =>
+                                                    AlertDialog(
+                                                      title: Text(
+                                                        "Edit",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      content:
+                                                          SingleChildScrollView(
+                                                        child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                "Name",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                              TextField(
+                                                                controller:
+                                                                    nameController,
+                                                                decoration:
+                                                                    InputDecoration(
                                                                         hintText:
                                                                             user.name),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 20,
-                                                                  ),
-                                                                  Text(
-                                                                    "Age",
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight.bold),
-                                                                  ),
-                                                                  TextField(
-                                                                    controller:
-                                                                        ageController,
-                                                                    decoration: InputDecoration(
+                                                              ),
+                                                              SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              Text(
+                                                                "Age",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                              TextField(
+                                                                controller:
+                                                                    ageController,
+                                                                decoration:
+                                                                    InputDecoration(
                                                                         hintText:
                                                                             user.age),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 20,
-                                                                  ),
-                                                                  Text(
-                                                                    "Location",
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight.bold),
-                                                                  ),
-                                                                  TextField(
-                                                                    controller:
-                                                                        locationController,
-                                                                    decoration: InputDecoration(
+                                                              ),
+                                                              SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              Text(
+                                                                "Location",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                              TextField(
+                                                                controller:
+                                                                    locationController,
+                                                                decoration:
+                                                                    InputDecoration(
                                                                         hintText:
                                                                             user.location),
-                                                                  ),
-                                                                ]),
-                                                          ),
-                                                          actions: [
-                                                            TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        context),
-                                                                child: Text(
-                                                                    "Cancel")),
-                                                            TextButton(
-                                                              onPressed: () {
-                                                                updateDetails(
-                                                                    userId:
-                                                                        user.id,
-                                                                    name: nameController.text.isEmpty ? user.name : nameController
-                                                                        .text,
-                                                                    age: ageController.text.isEmpty ? user.age:ageController
-                                                                        .text,
-                                                                    location:locationController.text.isEmpty ?user.location:
-                                                                        locationController
-                                                                            .text);
+                                                              ),
+                                                              SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              Text(
+                                                                "Position",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                              TextField(
+                                                                controller:
+                                                                    positionController,
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                        hintText:
+                                                                            user.position),
+                                                              ),
+                                                            ]),
+                                                      ),
+                                                      actions: [
+                                                        TextButton(
+                                                            onPressed: () =>
                                                                 Navigator.pop(
-                                                                    context);
-                                                              },
-                                                              child: Text(
-                                                                  "Update"),
-                                                            )
-                                                          ],
-                                                        ));
+                                                                    context),
+                                                            child:
+                                                                Text("Cancel")),
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            updateDetails(
+                                                                userId: user.id,
+                                                                name: nameController
+                                                                        .text
+                                                                        .isEmpty
+                                                                    ? user.name
+                                                                    : nameController
+                                                                        .text,
+                                                                age: ageController
+                                                                        .text
+                                                                        .isEmpty
+                                                                    ? user.age
+                                                                    : ageController
+                                                                        .text,
+                                                                location: locationController
+                                                                        .text
+                                                                        .isEmpty
+                                                                    ? user
+                                                                        .location
+                                                                    : locationController
+                                                                        .text,
+                                                                position: positionController
+                                                                        .text
+                                                                        .isEmpty
+                                                                    ? user
+                                                                        .position
+                                                                    : positionController
+                                                                        .text);
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Text("Update"),
+                                                        )
+                                                      ],
+                                                    ));
                                           },
                                           icon: Icon(Icons.edit)),
                                       IconButton(
@@ -212,6 +268,13 @@ class _HomepageState extends State<Homepage> {
                                 ),
                                 Text(
                                   "Location : ${user.location}",
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "Position : ${user.position}",
                                   style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 20,

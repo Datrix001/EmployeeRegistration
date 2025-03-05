@@ -5,6 +5,7 @@ class NormField extends StatelessWidget {
   final String? hint;
   final String label;
   final TextEditingController? controller;
+  // final AppText.body1Color = Colors.white;
 
   const NormField(this.label, this.controller, {this.hint, Key? key}) : super(key: key);
 

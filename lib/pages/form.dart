@@ -17,6 +17,8 @@ class _formState extends State<form> {
   final ageController = TextEditingController();
   final locationController = TextEditingController();
 
+  String DropValue = "";
+
   @override
   void dispose() {
     nameController.dispose();
@@ -28,7 +30,8 @@ class _formState extends State<form> {
   @override
   void initState() {
     super.initState();
-    AppText.bodySize = 18; // Set the value in initState()
+    AppText.bodySize = 18;
+    AppText.body1Color = Colors.black;
   }
 
   @override
@@ -70,6 +73,25 @@ class _formState extends State<form> {
             ),
             NormField("Location", locationController),
             SizedBox(
+              height: 40,
+            ),
+            DropdownMenu(
+              width: 360,
+              label: Text("Select Position"),
+              dropdownMenuEntries: <DropdownMenuEntry<String>>[
+              DropdownMenuEntry(value: "HR", label: "Human Resource Manager"),
+              DropdownMenuEntry(value: "Director", label: "Director"),
+              DropdownMenuEntry(value: "Manager", label: " Manager"),
+              DropdownMenuEntry(value: "Emp", label: "Employee"),
+            ],
+            onSelected: (value) {
+              if(value !=null){
+                setState(() {
+                  DropValue = value;
+                });
+              }
+            },),
+            SizedBox(
               height: 50,
             ),
             Center(
@@ -78,14 +100,17 @@ class _formState extends State<form> {
                     final user = User(
                         name: nameController.text,
                         age: ageController.text,
-                        location: locationController.text);
+                        location: locationController.text,
+                        position: DropValue);
                     if (user.name.isNotEmpty &&
                         user.age.isNotEmpty &&
-                        user.location.isNotEmpty) {
+                        user.location.isNotEmpty&&
+                        user.position.isNotEmpty) {
                       addDetails(
                           name: user.name,
                           age: user.age,
-                          location: user.location);
+                          location: user.location,
+                          position:user.position);
                       Navigator.popAndPushNamed(context, "/home");
                     }
                   },
@@ -107,12 +132,14 @@ class User {
   final String name;
   final String age;
   final String location;
+  final String position;
 
   User({
     this.id = "",
     required this.name,
     required this.age,
     required this.location,
+    required this.position
   });
 
   Map<String, dynamic> toJson() => {
@@ -127,5 +154,6 @@ class User {
         age: json['age'],
         location: json['location'],
         name: json['name'],
+        position: json['position']
       );
 }
