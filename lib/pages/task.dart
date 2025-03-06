@@ -62,18 +62,9 @@ class _taskState extends State<task> {
                 height: 40,
               ),
               TextField(
-                minLines:
-                    6, // any number you need (It works as the rows for the textarea)
-                // keyboardType: TextInputType.multiline,
-                maxLines: null,
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              TextField(
                 controller: _dateController,
                 decoration: InputDecoration(
-                  label: Text("Select Date"),
+                  label: Text("Select Date",style: AppText.body1Style(),),
                   prefixIcon: Icon(Icons.calendar_month),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -86,6 +77,29 @@ class _taskState extends State<task> {
                   _selectDate();
                 },
                 readOnly: true,
+              ),
+              
+              SizedBox(
+                height: 40,
+              ),
+              TextField(
+                minLines:
+                    6, // any number you need (It works as the rows for the textarea)
+                // keyboardType: TextInputType.multiline,
+                maxLines: null,
+                decoration: InputDecoration(
+                  // labelText: "Enter Task Description",
+                  label: Text("Enter Task Description",style:AppText.body1Style(),),
+                  alignLabelWithHint: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(color: Colors.white)
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(color: Colors.white)
+                  )
+                ),
               ),
               SizedBox(
                 height: 50,
