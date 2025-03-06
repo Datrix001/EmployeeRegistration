@@ -61,19 +61,19 @@ class _RegisterState extends State<Register> {
               SizedBox(
                 height: 40,
               ),
-              NormField("Full Name", null),
+              NormField("Full Name", null,icon: Icon(Icons.person),),
               SizedBox(
                 height: 20,
               ),
-              NormField("Email", emailController),
+              NormField("Email", emailController,icon: Icon(Icons.email),),
               SizedBox(
                 height: 20,
               ),
-              NormField("Password", passwordController),
+              NormField("Password", passwordController,icon: Icon(Icons.lock),),
               SizedBox(
                 height: 20,
               ),
-              NormField("Confirm Password", null),
+              NormField("Confirm Password", null,icon: Icon(Icons.lock),),
               SizedBox(
                 height: 30,
               ),

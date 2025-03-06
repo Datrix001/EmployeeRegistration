@@ -5,6 +5,7 @@ import 'package:notes/pages/front.dart';
 import 'package:notes/pages/home.dart';
 import 'package:notes/pages/login.dart';
 import 'package:notes/pages/register.dart';
+import 'package:notes/pages/task.dart';
 
 
 Future<void> main() async {
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
         "/form": (context) => form(),
         "/login":(context)=>Login(),
         "/register":(context)=>Register(),
-        "/home":(context)=>Homepage()
+        "/home":(context)=>Homepage(),
+        "/task":(context)=>task()
       },
     );
   }

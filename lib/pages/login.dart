@@ -61,11 +61,12 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 40,
               ),
-              NormField("Email", emailController),
+              NormField("Email", emailController,icon: Icon(Icons.email),),
               SizedBox(
                 height: 20,
               ),
-              NormField("Password", passwordController),
+              passwordField(label: "Password",controller: passwordController,),
+              // NormField("Password", passwordController,icon: Icon(Icons.password),),
               Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(

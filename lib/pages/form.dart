@@ -47,97 +47,135 @@ class _formState extends State<form> {
       //     ],
       //   ),
       // ),
-      body: Container(
-        margin: EdgeInsets.only(left: 40, top: 30, right: 40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 30,
-            ),
-            Center(
-                child: Text(
-              "EmployeeForm",
-              style: AppText.headerStyle(),
-            )),
-            SizedBox(
-              height: 40,
-            ),
-            NormField("Name", nameController),
-            SizedBox(
-              height: 40,
-            ),
-            NormField("Age", ageController),
-            SizedBox(
-              height: 40,
-            ),
-            NormField("Location", locationController),
-            SizedBox(
-              height: 40,
-            ),
-            DropdownMenu(
-              width: 340,
-              inputDecorationTheme: InputDecorationTheme(
-                  // border: OutlineInputBorder(
-                  //     // borderSide: BorderSide(color:Colors.white),
-                  //     borderRadius: BorderRadius.circular(20,)
-                  //     ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(width: 2,color: Colors.white)
-                      )
-                      ),
-              // label: Text("Select Position"),
-              initialSelection: DropValue,
-              dropdownMenuEntries: <DropdownMenuEntry<String>>[
-                DropdownMenuEntry(
-                    value: "HR",
-                    label: "Human Resource Manager",
-                    style: ButtonStyle(
-                        // backgroundColor: MaterialStateProperty.all(AppColors.backgroundColor)
-                        )),
-                DropdownMenuEntry(value: "Director", label: "Director"),
-                DropdownMenuEntry(value: "Manager", label: "Manager"),
-                DropdownMenuEntry(value: "Emp", label: "Employee"),
-              ],
-              onSelected: (value) {
-                if (value != null) {
-                  setState(() {
-                    DropValue = value;
-                  });
-                }
-              },
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Center(
-              child: ElevatedButton(
-                  onPressed: () {
-                    final user = User(
-                        name: nameController.text,
-                        age: ageController.text,
-                        location: locationController.text,
-                        position: DropValue);
-                    if (user.name.isNotEmpty &&
-                        user.age.isNotEmpty &&
-                        user.location.isNotEmpty &&
-                        user.position.isNotEmpty) {
-                      addDetails(
-                          name: user.name,
-                          age: user.age,
-                          location: user.location,
-                          position: user.position);
-                      Navigator.popAndPushNamed(context, "/home");
-                    }
-                  },
-                  style: AppButton.ElevatedStyle,
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.only(left: 40, top: 30, right: 40),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 30,
+              ),
+              Center(
                   child: Text(
-                    "Submit",
-                    style: AppText.bodyStyle(),
-                  )),
-            )
-          ],
+                "EmployeeForm",
+                style: AppText.headerStyle(),
+              )),
+              SizedBox(
+                height: 40,
+              ),
+              NormField("Name", nameController),
+              SizedBox(
+                height: 40,
+              ),
+              NormField("Age", ageController),
+              SizedBox(
+                height: 40,
+              ),
+              NormField("Location", locationController),
+              SizedBox(
+                height: 40,
+              ),
+              DropdownMenu(
+                label: Text("Select Position"),
+                width: 340,
+                inputDecorationTheme: InputDecorationTheme(
+                    // border: OutlineInputBorder(
+                    //     // borderSide: BorderSide(color:Colors.white),
+                    //     borderRadius: BorderRadius.circular(20,)
+                    //     ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(width: 2,color: Colors.white)
+                        )
+                        ),
+                // label: Text("Select Position"),
+                initialSelection: DropValue,
+                dropdownMenuEntries: <DropdownMenuEntry<String>>[
+                  DropdownMenuEntry(
+                      value: "HR",
+                      label: "Human Resource Manager",
+                      style: ButtonStyle(
+                          // backgroundColor: MaterialStateProperty.all(AppColors.backgroundColor)
+                          )),
+                  DropdownMenuEntry(value: "Director", label: "Director"),
+                  DropdownMenuEntry(value: "Manager", label: "Manager"),
+                  DropdownMenuEntry(value: "Emp", label: "Employee"),
+                ],
+                onSelected: (value) {
+                  if (value != null) {
+                    setState(() {
+                      DropValue = value;
+                    });
+                  }
+                },
+              ),
+              SizedBox(height: 30,),
+              DropdownMenu(
+                label: Text("Select Task"),
+                width: 340,
+                inputDecorationTheme: InputDecorationTheme(
+                    // border: OutlineInputBorder(
+                    //     // borderSide: BorderSide(color:Colors.white),
+                    //     borderRadius: BorderRadius.circular(20,)
+                    //     ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(width: 2,color: Colors.white)
+                        )
+                        ),
+                // label: Text("Select Position"),
+                initialSelection: DropValue,
+                dropdownMenuEntries: <DropdownMenuEntry<String>>[
+                  DropdownMenuEntry(
+                      value: '1',
+                      label: "Task1",
+                      style: ButtonStyle(
+                          // backgroundColor: MaterialStateProperty.all(AppColors.backgroundColor)
+                          )),
+                  DropdownMenuEntry(value: "1", label: "Task1"),
+                  DropdownMenuEntry(value: "2", label: "Task2"),
+                  DropdownMenuEntry(value: "3", label: "Task3"),
+                ],
+                onSelected: (value) {
+                  if (value != null) {
+                    setState(() {
+                      DropValue = value;
+                    });
+                  }
+                },
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Center(
+                child: ElevatedButton(
+                    onPressed: () {
+                      final user = User(
+                          name: nameController.text,
+                          age: ageController.text,
+                          location: locationController.text,
+                          position: DropValue);
+                      if (user.name.isNotEmpty &&
+                          user.age.isNotEmpty &&
+                          user.location.isNotEmpty &&
+                          user.position.isNotEmpty) {
+                        addDetails(
+                            name: user.name,
+                            age: user.age,
+                            location: user.location,
+                            position: user.position);
+                        Navigator.popAndPushNamed(context, "/home");
+                      }
+                    },
+                    style: AppButton.ElevatedStyle,
+                    child: Text(
+                      "Submit",
+                      style: AppText.bodyStyle(),
+                    )),
+              )
+            ],
+          ),
         ),
       ),
     );

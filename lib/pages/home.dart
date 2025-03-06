@@ -29,7 +29,7 @@ void dispose() {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-            onPressed: () => Navigator.pushNamed(context, "/form"),
+            onPressed: () => Navigator.pushNamed(context, "/task"),
             child: Icon(Icons.add)),
         appBar: AppBar(
           title: Row(
