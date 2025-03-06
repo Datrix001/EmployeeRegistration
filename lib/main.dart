@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/pages/form.dart';
@@ -6,7 +5,6 @@ import 'package:notes/pages/front.dart';
 import 'package:notes/pages/home.dart';
 import 'package:notes/pages/login.dart';
 import 'package:notes/pages/register.dart';
-import 'package:notes/service/auth_service.dart';
 
 
 Future<void> main() async {

@@ -17,7 +17,7 @@ class _formState extends State<form> {
   final ageController = TextEditingController();
   final locationController = TextEditingController();
 
-  String DropValue = "";
+  String DropValue = "HR";
 
   @override
   void dispose() {
@@ -76,21 +76,38 @@ class _formState extends State<form> {
               height: 40,
             ),
             DropdownMenu(
-              width: 360,
-              label: Text("Select Position"),
+              width: 340,
+              inputDecorationTheme: InputDecorationTheme(
+                  // border: OutlineInputBorder(
+                  //     // borderSide: BorderSide(color:Colors.white),
+                  //     borderRadius: BorderRadius.circular(20,)
+                  //     ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(width: 2,color: Colors.white)
+                      )
+                      ),
+              // label: Text("Select Position"),
+              initialSelection: DropValue,
               dropdownMenuEntries: <DropdownMenuEntry<String>>[
-              DropdownMenuEntry(value: "HR", label: "Human Resource Manager"),
-              DropdownMenuEntry(value: "Director", label: "Director"),
-              DropdownMenuEntry(value: "Manager", label: " Manager"),
-              DropdownMenuEntry(value: "Emp", label: "Employee"),
-            ],
-            onSelected: (value) {
-              if(value !=null){
-                setState(() {
-                  DropValue = value;
-                });
-              }
-            },),
+                DropdownMenuEntry(
+                    value: "HR",
+                    label: "Human Resource Manager",
+                    style: ButtonStyle(
+                        // backgroundColor: MaterialStateProperty.all(AppColors.backgroundColor)
+                        )),
+                DropdownMenuEntry(value: "Director", label: "Director"),
+                DropdownMenuEntry(value: "Manager", label: "Manager"),
+                DropdownMenuEntry(value: "Emp", label: "Employee"),
+              ],
+              onSelected: (value) {
+                if (value != null) {
+                  setState(() {
+                    DropValue = value;
+                  });
+                }
+              },
+            ),
             SizedBox(
               height: 50,
             ),
@@ -104,13 +121,13 @@ class _formState extends State<form> {
                         position: DropValue);
                     if (user.name.isNotEmpty &&
                         user.age.isNotEmpty &&
-                        user.location.isNotEmpty&&
+                        user.location.isNotEmpty &&
                         user.position.isNotEmpty) {
                       addDetails(
                           name: user.name,
                           age: user.age,
                           location: user.location,
-                          position:user.position);
+                          position: user.position);
                       Navigator.popAndPushNamed(context, "/home");
                     }
                   },
@@ -134,13 +151,12 @@ class User {
   final String location;
   final String position;
 
-  User({
-    this.id = "",
-    required this.name,
-    required this.age,
-    required this.location,
-    required this.position
-  });
+  User(
+      {this.id = "",
+      required this.name,
+      required this.age,
+      required this.location,
+      required this.position});
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -150,10 +166,9 @@ class User {
       };
 
   static User fromJson(Map<String, dynamic> json) => User(
-        id: json['id'],
-        age: json['age'],
-        location: json['location'],
-        name: json['name'],
-        position: json['position']
-      );
+      id: json['id'],
+      age: json['age'],
+      location: json['location'],
+      name: json['name'],
+      position: json['position']);
 }
