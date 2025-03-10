@@ -18,6 +18,7 @@ class _formState extends State<form> {
   final locationController = TextEditingController();
 
   String DropValue = "HR";
+  String DropValue1 = "HR";
 
   @override
   void dispose() {
@@ -115,23 +116,17 @@ class _formState extends State<form> {
                 label: Text("Select Task"),
                 width: 340,
                 inputDecorationTheme: InputDecorationTheme(
-                    // border: OutlineInputBorder(
-                    //     // borderSide: BorderSide(color:Colors.white),
-                    //     borderRadius: BorderRadius.circular(20,)
-                    //     ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide(width: 2,color: Colors.white)
                         )
                         ),
-                // label: Text("Select Position"),
                 initialSelection: DropValue,
                 dropdownMenuEntries: <DropdownMenuEntry<String>>[
                   DropdownMenuEntry(
                       value: '1',
                       label: "Task1",
                       style: ButtonStyle(
-                          // backgroundColor: MaterialStateProperty.all(AppColors.backgroundColor)
                           )),
                   DropdownMenuEntry(value: "1", label: "Task1"),
                   DropdownMenuEntry(value: "2", label: "Task2"),
@@ -140,7 +135,7 @@ class _formState extends State<form> {
                 onSelected: (value) {
                   if (value != null) {
                     setState(() {
-                      DropValue = value;
+                      DropValue1 = value;
                     });
                   }
                 },
@@ -155,7 +150,8 @@ class _formState extends State<form> {
                           name: nameController.text,
                           age: ageController.text,
                           location: locationController.text,
-                          position: DropValue);
+                          position: DropValue,
+                          task:DropValue1);
                       if (user.name.isNotEmpty &&
                           user.age.isNotEmpty &&
                           user.location.isNotEmpty &&
@@ -188,19 +184,22 @@ class User {
   final String age;
   final String location;
   final String position;
+  final String task;
 
-  User(
+  User( 
       {this.id = "",
       required this.name,
       required this.age,
       required this.location,
-      required this.position});
+      required this.position,
+      required this.task,});
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
         'age': age,
         'location': location,
+        'task':task
       };
 
   static User fromJson(Map<String, dynamic> json) => User(
@@ -208,5 +207,6 @@ class User {
       age: json['age'],
       location: json['location'],
       name: json['name'],
-      position: json['position']);
+      position: json['position'],
+      task:json['task']);
 }

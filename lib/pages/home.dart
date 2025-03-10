@@ -18,6 +18,7 @@ class _HomepageState extends State<Homepage> {
   final ageController = TextEditingController();
   final locationController = TextEditingController();
   final positionController = TextEditingController();
+  final taskController = TextEditingController();
 
   @override
   void dispose() {
@@ -25,6 +26,7 @@ class _HomepageState extends State<Homepage> {
     ageController.dispose();
     locationController.dispose();
     positionController.dispose();
+    taskController.dispose();
     super.dispose();
   }
 
@@ -58,12 +60,16 @@ class _HomepageState extends State<Homepage> {
         ),
         body: SingleChildScrollView(
           child: Column(children: [
-            Padding(padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30)),
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30)),
             Center(
-              child: Text("Employee Details",style: AppText.headerStyle(),),
+              child: Text(
+                "Employee Details",
+                style: AppText.headerStyle(),
+              ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 30,right: 30),
+              margin: EdgeInsets.only(left: 30, right: 30),
               child: StreamBuilder<List<User>>(
                   stream: readUser(),
                   builder: (context, snapshot) {
@@ -123,6 +129,7 @@ class _HomepageState extends State<Homepage> {
                                                     user.location;
                                                 positionController.text =
                                                     user.position;
+                                                taskController.text = user.task;
                                                 showDialog(
                                                     context: context,
                                                     builder:
@@ -200,10 +207,26 @@ class _HomepageState extends State<Homepage> {
                                                                                 FontWeight.bold),
                                                                       ),
                                                                       TextField(
+                                                                        readOnly:
+                                                                            true,
                                                                         controller:
                                                                             positionController,
                                                                         decoration:
                                                                             InputDecoration(hintText: user.position),
+                                                                      ),
+                                                                      Text(
+                                                                        "Task",
+                                                                        style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
+                                                                      ),
+                                                                      TextField(
+                                                                        readOnly:
+                                                                            true,
+                                                                        controller:
+                                                                            taskController,
+                                                                        decoration:
+                                                                            InputDecoration(hintText: user.task),
                                                                       ),
                                                                     ]),
                                                               ),
@@ -235,9 +258,11 @@ class _HomepageState extends State<Homepage> {
                                                                                 .location
                                                                             : locationController
                                                                                 .text,
-                                                                        position: positionController.text.isEmpty
-                                                                            ? user.position
-                                                                            : positionController.text);
+                                                                        position:
+                                                                            positionController
+                                                                                .text,
+                                                                        task: taskController
+                                                                            .text);
                                                                     Navigator.pop(
                                                                         context);
                                                                   },
@@ -274,6 +299,13 @@ class _HomepageState extends State<Homepage> {
                                     ),
                                     Text(
                                       "Position : ${user.position}",
+                                      style: TextStyle(
+                                          color: Colors.blue,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      "Task : ${user.task}",
                                       style: TextStyle(
                                           color: Colors.blue,
                                           fontSize: 20,

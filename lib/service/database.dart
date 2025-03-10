@@ -22,7 +22,7 @@ Future updateDetails(
     required String name,
     required String age,
     required String location,
-    required String position}) async {
+    required String position, required String task}) async {
   final docUser = FirebaseFirestore.instance.collection("Employee").doc(userId);
 
   await docUser.update({

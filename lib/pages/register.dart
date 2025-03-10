@@ -36,7 +36,7 @@ class _RegisterState extends State<Register> {
       backgroundColor: AppColors.backgroundColor,
       body: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: height * 0.06, vertical: width * 0.02),
+            horizontal: height * 0.06, vertical: width * 0.01),
         child: SingleChildScrollView(
           child: Column(
             children: [
