@@ -20,6 +20,20 @@ Future addDetails(
   await docUser.set(json);
 }
 
+
+Future addTask(
+  {required String taskName, required String taskDesc, required DateTime selectDate}
+)async{
+  final docUser = FirebaseFirestore.instance.collection("Task").doc();
+  final json = {
+    'taskName':taskName,
+    'selectDate':selectDate,
+    'taskDesc':taskDesc
+  };
+  await docUser.set(json);
+}
+
+
 Future updateDetails(
   {required String userId,
     required String name,

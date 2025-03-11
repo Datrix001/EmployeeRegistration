@@ -14,8 +14,8 @@ class task extends StatefulWidget {
 
 class _taskState extends State<task> {
   final taskNameController = TextEditingController();
-  final taskDesc = TextEditingController();
-
+  final taskDescController = TextEditingController();
+  final _dateController = TextEditingController();
 
   String DropValue = "HR";
 
@@ -82,6 +82,7 @@ class _taskState extends State<task> {
                 height: 40,
               ),
               TextField(
+                controller: taskDescController,
                 minLines:
                     6, // any number you need (It works as the rows for the textarea)
                 // keyboardType: TextInputType.multiline,
@@ -106,6 +107,18 @@ class _taskState extends State<task> {
               Center(
                 child: ElevatedButton(
                     onPressed: () {
+
+                        final task = Task(
+                          taskName:taskNameController.text,
+                          selectDate:DateTime.parse(_dateController.text),
+                          taskDesc:taskDescController.text
+                        );
+
+                        if(task.taskName.isNotEmpty && task.taskDesc.isNotEmpty){
+                            addTask(taskName: task.taskName, taskDesc: task.taskDesc, selectDate: task.selectDate);
+                            Navigator.popAndPushNamed(context, '/home');
+                        }
+
                       // final user = User(
                       //     name: nameController.text,
                       //     age: ageController.text,
