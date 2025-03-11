@@ -13,10 +13,9 @@ class task extends StatefulWidget {
 }
 
 class _taskState extends State<task> {
-  final nameController = TextEditingController();
-  final ageController = TextEditingController();
-  final locationController = TextEditingController();
-  final _dateController = TextEditingController();
+  final taskNameController = TextEditingController();
+  final taskDesc = TextEditingController();
+
 
   String DropValue = "HR";
 
@@ -57,7 +56,7 @@ class _taskState extends State<task> {
               SizedBox(
                 height: 40,
               ),
-              NormField("Task Name", nameController),
+              NormField("Task Name", taskNameController),
               SizedBox(
                 height: 40,
               ),
@@ -149,4 +148,25 @@ class _taskState extends State<task> {
       });
     }
   }
+}
+
+
+class Task {
+  final String taskName;
+  final DateTime selectDate;
+  final String taskDesc;
+  Task({required this.selectDate, required this.taskDesc, required this.taskName});
+
+  Map<String, dynamic> toJson() =>{
+    'taskName' : taskName,
+    'selectDate' : selectDate.toIso8601String(),
+    'taskDesc' : taskDesc
+  };
+
+  static Task fromJson(Map<String, dynamic> json) => Task(
+      taskName: json['taskName'],
+      selectDate:DateTime.parse(json['selectDate']),
+      taskDesc:json['taskDesc']
+  );
+
 }
