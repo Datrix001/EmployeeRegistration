@@ -4,14 +4,17 @@ import 'package:notes/pages/form.dart';
 Future addDetails(
     {required String name,
     required String age,
-    required String location, required String position}) async {
+    required String location, 
+    required String position,
+    required String task}) async {
   final docUser = FirebaseFirestore.instance.collection("Employee").doc();
   final json = {
     'id': docUser.id,
     'name': name,
     'age': age,
     'location': location,
-    'position':position
+    'position':position,
+    'task':task,
   };
 
   await docUser.set(json);
@@ -22,14 +25,16 @@ Future updateDetails(
     required String name,
     required String age,
     required String location,
-    required String position, required String task}) async {
+    required String position,
+    required String task}) async {
   final docUser = FirebaseFirestore.instance.collection("Employee").doc(userId);
 
   await docUser.update({
     'name': name,
     'age': age,
     'location': location,
-    'position':position
+    'position':position,
+    'taks':task
   });
 }
 

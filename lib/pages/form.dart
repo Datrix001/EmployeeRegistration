@@ -155,12 +155,14 @@ class _formState extends State<form> {
                       if (user.name.isNotEmpty &&
                           user.age.isNotEmpty &&
                           user.location.isNotEmpty &&
-                          user.position.isNotEmpty) {
+                          user.position.isNotEmpty &&
+                          user.task.isNotEmpty) {
                         addDetails(
                             name: user.name,
                             age: user.age,
                             location: user.location,
-                            position: user.position);
+                            position: user.position,
+                            task:user.task);
                         Navigator.popAndPushNamed(context, "/home");
                       }
                     },
