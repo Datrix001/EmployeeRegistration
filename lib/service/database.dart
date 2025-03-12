@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:notes/pages/form.dart';
+import 'package:notes/pages/task.dart';
 
 Future addDetails(
     {required String name,
     required String age,
-    required String location, 
+    required String location,
     required String position,
     required String task}) async {
   final docUser = FirebaseFirestore.instance.collection("Employee").doc();
@@ -13,29 +14,28 @@ Future addDetails(
     'name': name,
     'age': age,
     'location': location,
-    'position':position,
-    'task':task,
+    'position': position,
+    'task': task,
   };
 
   await docUser.set(json);
 }
-
 
 Future addTask(
-  {required String taskName, required String taskDesc, required DateTime selectDate}
-)async{
+    {required String taskName,
+    required String taskDesc,
+    required DateTime selectDate}) async {
   final docUser = FirebaseFirestore.instance.collection("Task").doc();
   final json = {
-    'taskName':taskName,
-    'selectDate':selectDate,
-    'taskDesc':taskDesc
+    'taskName': taskName,
+    'selectDate': selectDate,
+    'taskDesc': taskDesc
   };
   await docUser.set(json);
 }
 
-
 Future updateDetails(
-  {required String userId,
+    {required String userId,
     required String name,
     required String age,
     required String location,
@@ -47,8 +47,8 @@ Future updateDetails(
     'name': name,
     'age': age,
     'location': location,
-    'position':position,
-    'taks':task
+    'position': position,
+    'taks': task
   });
 }
 
@@ -57,3 +57,7 @@ Stream<List<User>> readUser() => FirebaseFirestore.instance
     .snapshots()
     .map((snapshot) =>
         snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
+
+Stream<List<Task>> readTask() =>
+    FirebaseFirestore.instance.collection("Task").snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => Task.fromJson(doc.data())).toList());

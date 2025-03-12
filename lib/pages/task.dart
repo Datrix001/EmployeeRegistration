@@ -118,23 +118,6 @@ class _taskState extends State<task> {
                             addTask(taskName: task.taskName, taskDesc: task.taskDesc, selectDate: task.selectDate);
                             Navigator.popAndPushNamed(context, '/home');
                         }
-
-                      // final user = User(
-                      //     name: nameController.text,
-                      //     age: ageController.text,
-                      //     location: locationController.text,
-                      //     position: DropValue);
-                      // if (user.name.isNotEmpty &&
-                      //     user.age.isNotEmpty &&
-                      //     user.location.isNotEmpty &&
-                      //     user.position.isNotEmpty) {
-                      //   addDetails(
-                      //       name: user.name,
-                      //       age: user.age,
-                      //       location: user.location,
-                      //       position: user.position);
-                      //   Navigator.popAndPushNamed(context, "/home");
-                      // }
                     },
                     style: AppButton.ElevatedStyle,
                     child: Text(
