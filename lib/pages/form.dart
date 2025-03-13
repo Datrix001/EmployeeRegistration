@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/service/database.dart';
 import 'package:notes/styles/Colors.dart';
@@ -85,11 +86,9 @@ class _formState extends State<form> {
                     //     // borderSide: BorderSide(color:Colors.white),
                     //     borderRadius: BorderRadius.circular(20,)
                     //     ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(width: 2,color: Colors.white)
-                        )
-                        ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(width: 2, color: Colors.white))),
                 // label: Text("Select Position"),
                 initialSelection: DropValue,
                 dropdownMenuEntries: <DropdownMenuEntry<String>>[
@@ -111,33 +110,36 @@ class _formState extends State<form> {
                   }
                 },
               ),
-              SizedBox(height: 30,),
-              DropdownMenu(
-                label: Text("Select Task"),
-                width: 340,
-                inputDecorationTheme: InputDecorationTheme(
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(width: 2,color: Colors.white)
-                        )
-                        ),
-                initialSelection: DropValue,
-                dropdownMenuEntries: <DropdownMenuEntry<String>>[
-                  DropdownMenuEntry(
-                      value: '1',
-                      label: "Task1",
-                      style: ButtonStyle(
-                          )),
-                  DropdownMenuEntry(value: "1", label: "Task1"),
-                  DropdownMenuEntry(value: "2", label: "Task2"),
-                  DropdownMenuEntry(value: "3", label: "Task3"),
-                ],
-                onSelected: (value) {
-                  if (value != null) {
-                    setState(() {
-                      DropValue1 = value;
-                    });
+              SizedBox(
+                height: 30,
+              ),
+              StreamBuilder(
+                stream: readTask(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text("Error: ${snapshot.error}");
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Text("No Tasks Available");
                   }
+                  var docs = snapshot.data!;
+                  return DropdownButtonFormField<String>(
+                    value: DropValue1,
+                    items: docs.map<DropdownMenuItem<String>>((doc) {
+                      return DropdownMenuItem<String>(
+                        value: doc.taskName,
+                        child: Text(doc.taskName),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          DropValue1 = value;
+                        });
+                      }
+                    },
+                  );
                 },
               ),
               SizedBox(
@@ -151,7 +153,7 @@ class _formState extends State<form> {
                           age: ageController.text,
                           location: locationController.text,
                           position: DropValue,
-                          task:DropValue1);
+                          task: DropValue1);
                       if (user.name.isNotEmpty &&
                           user.age.isNotEmpty &&
                           user.location.isNotEmpty &&
@@ -162,7 +164,7 @@ class _formState extends State<form> {
                             age: user.age,
                             location: user.location,
                             position: user.position,
-                            task:user.task);
+                            task: user.task);
                         Navigator.popAndPushNamed(context, "/home");
                       }
                     },
@@ -188,21 +190,17 @@ class User {
   final String position;
   final String task;
 
-  User( 
-      {this.id = "",
-      required this.name,
-      required this.age,
-      required this.location,
-      required this.position,
-      required this.task,});
+  User({
+    this.id = "",
+    required this.name,
+    required this.age,
+    required this.location,
+    required this.position,
+    required this.task,
+  });
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'age': age,
-        'location': location,
-        'task':task
-      };
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'name': name, 'age': age, 'location': location, 'task': task};
 
   static User fromJson(Map<String, dynamic> json) => User(
       id: json['id'],
@@ -210,5 +208,5 @@ class User {
       location: json['location'],
       name: json['name'],
       position: json['position'],
-      task:json['task']);
+      task: json['task']);
 }
