@@ -123,15 +123,27 @@ class _formState extends State<form> {
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     return Text("No Tasks Available");
                   }
+
                   var docs = snapshot.data!;
+                  List<DropdownMenuItem<String>> taskItems = docs.map((doc) {
+                    return DropdownMenuItem<String>(
+                      value: doc.taskName,
+                      child: Text(doc.taskName),
+                    );
+                  }).toList();
+
+                  // ✅ Ensure DropValue1 is in the list
+                  if (!docs.any((doc) => doc.taskName == DropValue1)) {
+                    DropValue1 = docs.isNotEmpty
+                        ? docs.first.taskName
+                        : ""; // Set a valid default
+                  }
+
                   return DropdownButtonFormField<String>(
-                    value: DropValue1,
-                    items: docs.map<DropdownMenuItem<String>>((doc) {
-                      return DropdownMenuItem<String>(
-                        value: doc.taskName,
-                        child: Text(doc.taskName),
-                      );
-                    }).toList(),
+                    value: DropValue1.isNotEmpty
+                        ? DropValue1
+                        : null, // ✅ Set value only if not empty
+                    items: taskItems,
                     onChanged: (value) {
                       if (value != null) {
                         setState(() {

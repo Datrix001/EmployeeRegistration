@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/service/database.dart';
 import 'package:notes/styles/Colors.dart';
@@ -161,7 +162,9 @@ class Task {
 
   static Task fromJson(Map<String, dynamic> json) => Task(
       taskName: json['taskName'],
-      selectDate:DateTime.parse(json['selectDate']),
+      selectDate: json['selectDate'] is Timestamp
+          ? (json['selectDate'] as Timestamp).toDate() // ✅ Convert Timestamp to DateTime
+          : DateTime.parse(json['selectDate']),
       taskDesc:json['taskDesc']
   );
 
